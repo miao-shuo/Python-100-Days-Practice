@@ -1,0 +1,11 @@
+length = float(input('请输入尺寸：'))
+unit = input('请输入单位(inch / cm)：')
+
+if unit == 'inch' :
+    print('是 %.2f cm' % (length * 2.54))
+
+elif unit == 'cm' :
+    print('是 %.2f inch' % (length / 2.54))
+
+else:
+    print('请输入正确的尺寸/单位')
