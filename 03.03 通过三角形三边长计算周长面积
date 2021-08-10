@@ -1,0 +1,27 @@
+import math
+
+a = float(input('a = '))
+b = float(input('b = '))
+c = float(input('c = '))
+
+if a + b > c and a + c > b and b + c > a:               #任意两边长需大于第三边
+    print('周长：' + str(a + b + c))
+    p = (a + b + c) / 2                                 #海伦公式一
+    s = math.sqrt(p * (p-a) * (p-b) * (p-c))            #海伦公式二
+    print('面积：' + str(s))
+
+elif a + b == c:                                        #任意两边长等于第三遍为退化三角形
+    print('是退化三角形')
+    print('周长：' + str(c))
+    print('面积：0')
+elif a + c == b:
+    print('是退化三角形')
+    print('周长：' + str(b))
+    print('面积：0')
+elif b + c == a:
+    print('是退化三角形')
+    print('周长：' + (a))
+    print('面积：0')
+
+else:
+    print('不是三角形')
