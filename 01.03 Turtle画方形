@@ -1,0 +1,14 @@
+import turtle
+
+turtle.pensize()                #画笔粗细
+turtle.pencolor('blue')         #画笔颜色
+
+turtle.fd(100)
+turtle.rt(90)
+turtle.fd(100)
+turtle.rt(90)
+turtle.fd(100)
+turtle.rt(90)
+turtle.fd(100)
+
+turtle.mainloop()
