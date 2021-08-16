@@ -1,0 +1,18 @@
+def main():
+    persons = [True] * 30
+    counter,index,number = 0,0,0
+    while counter < 15:                         #一直运行到只剩15人
+        if persons[index]:                      #如果此人是True（幸存者）
+            number += 1                         #报数+1
+            if number == 9:                     #当报数为第9人时
+                persons[index] = False          #此人记为False(被淘汰)
+                counter += 1                    #幸存者+1
+                number = 0                      #重新报数
+
+        index += 1                              #开始计算下一个人
+        index %= 30                             #为什么非要求余数？余数的计算结果不是与上一行相同么？
+    for person in persons:
+        print('基' if person else '非', end='')  #这句的表达方式没有学过
+
+if __name__ == '__main__':
+    main()
