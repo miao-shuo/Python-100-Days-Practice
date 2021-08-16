@@ -1,0 +1,23 @@
+from random import randint, sample
+
+def display(balls):                         #输出列表中的双色球号码
+    for index,ball in enumerate(balls):     #列表下标赋值给index，值赋值给ball
+        if index == len(balls) - 1:         #判断是否为第六个球，用｜来分割红蓝球
+            print('|',end=' ')
+        print('%d' % ball , end=' ')        #如果不是就继续输出
+    print()
+
+def random_select():                        #随机选择一组号码
+    red_balls = [x for x in range(1,34)]    #遍历后得到1-33号的列表
+    selected_balls = sample(red_balls,6)    #随机从red_balls取出6个数字
+    selected_balls.sort()                   #按大小重新排列
+    selected_balls.append(randint(1,16))    #增加蓝球号数
+    return selected_balls
+
+def main():
+    n = int(input('机选几注：'))
+    for _ in range(n):                      #将函数运行n次
+        display(random_select())
+
+if __name__ == '__main__':
+    main()
