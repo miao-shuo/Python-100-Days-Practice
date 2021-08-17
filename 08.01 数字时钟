@@ -1,0 +1,33 @@
+from time import sleep
+
+class Clock(object):
+
+    def __init__(self,hour=0, minute=0, second=0):       #初始化对象
+        self._hour = hour
+        self._minute = minute
+        self._second = second
+
+    def run(self):
+        self._second += 1                                #秒+1
+        if self._second == 60:
+            self._second = 0                             #秒清零
+            self._minute += 1                            #进位到分+1
+            if self._minute ==60:
+                self._minute = 0                         #分清零
+                self._hour += 1                          #进位到小时+1
+                if self._hour == 24:                     #当为24小时
+                    self._hour = 0                       #清零
+
+    def show(self):
+        return '%d:%d:%d' % \
+               (self._hour, self._minute, self._second)
+
+def main():
+    clock = Clock(0, 0, 0)                               #给对象赋值
+    while True:
+        print(clock.show())                              #打印当前时间
+        sleep(1)                                         #延时1秒
+        clock.run()                                      #运行函数
+
+if __name__ == '__main__':
+    main()
