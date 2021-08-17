@@ -1,0 +1,41 @@
+import os
+
+def print_board(board):                                          #绘制九宫格
+    print(board['1'] + '|' + board['2'] + '|' + board['3'])
+    print('-+-+-')
+    print(board['4'] + '|' + board['5'] + '|' + board['6'])
+    print('-+-+-')
+    print(board['7'] + '|' + board['8'] + '|' + board['9'])
+
+def main():
+    init_board = {                                               #建立初始字典
+        '1': ' ', '2': ' ', '3': ' ',
+        '4': ' ', '5': ' ', '6': ' ',
+        '7': ' ', '8': ' ', '9': ' '
+    }
+    begin = True
+    while begin:
+        curr_board = init_board.copy()                          #浅拷贝一份字典
+        begin = False
+        turn = 'x'                                              #设定初始下棋方
+        counter = 0                                             #计数器归零
+        os.system('clear')                                      #清屏
+        print_board(curr_board)                                 #以字典curr_board的值建立九宫格
+        while counter < 9:                                      #判断棋盘是否下满
+            move = input('(依九宫格编号分别为1-9)\n'
+                         '%s方走棋，请输入位置:' % turn )          #提示哪方下棋
+            if curr_board[move] == ' ':                         #判断下棋位是否为空位
+                counter += 1                                    #计数器+1
+                curr_board[move] = turn                         #将字典中对应位置替换为下棋方符号
+                if turn == 'x':
+                    turn = 'o'                                  #切换下棋方
+                else:
+                    turn = 'x'
+            os.system('clear')                                  #清屏
+            print_board(curr_board)                             #打印替换后的九宫格
+        choice = input('再玩一局？( Y / N )')
+        begin = choice == 'Y'                                   #begin = Y 然后呢？
+
+if __name__ == '__main__':
+    main()
+#下版本想实现 判断输赢 和 在同一棋盘上下棋（而非更新一个新的棋盘）功能
