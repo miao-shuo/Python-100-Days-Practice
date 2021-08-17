@@ -15,3 +15,17 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+———————————— 另外版本 ————————————
+import time
+
+def main():
+    content = '北京欢迎你为你开天辟地..........'
+    while True:
+        print('\r' + ' ' * 20, end = '')        #打印等长的空白用来刷新屏幕
+        print('\r' + content, end = '')         #回到行首打印文本
+        time.sleep(0.2)                         #延时2毫秒
+        content = content[1:] + content[0]      #文本头一位转移至末尾实现跑马效果
+
+if __name__ == "__main__":
+    main()
