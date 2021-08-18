@@ -25,7 +25,8 @@ class Clock(object):
 def main():
     clock = Clock(0, 0, 0)                               #给对象赋值
     while True:
-        print(clock.show())                              #打印当前时间
+        print('\r' + ' '*8, end='' )                     #不换行刷新显示
+        print('\r' + clock.show(), end='')               #打印当前时间
         sleep(1)                                         #延时1秒
         clock.run()                                      #运行函数
 
