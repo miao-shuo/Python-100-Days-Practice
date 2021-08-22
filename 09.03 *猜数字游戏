@@ -1,0 +1,16 @@
+print('_______________妙说小问答_______________')
+temp = input('猜猜妙说心中在想什么数字？\n写出你的答案叭:')
+guess = int(temp)
+while guess != 8:
+    print('猜错啦大笨蛋')
+    a = input('是否继续？\n1.继续    2.退出\n')
+    b = int(a)
+    if (b == 1):
+        temp = input('猜猜妙说心中在想什么数字？\n写出你的答案叭:')
+        guess = int(temp)
+    else:
+        print('游戏结束')
+        break
+else:
+    print('牛逼！你是我心里的蛔虫嘛?!')
+    print('哈哈哈哈猜中了也么得奖励')
