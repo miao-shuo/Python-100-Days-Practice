@@ -1,0 +1,91 @@
+from  enum import  Enum, unique                                     # 枚举类，返回不重复元素列表
+from  math import  sqrt                                             # 平方根
+from random import  randint
+
+import  pygame
+
+
+@unique
+class Color(Enum):                                                  # 定义颜色
+
+    RED = (255, 0, 0)                                               # 为什么要定义这些颜色？
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    GRAY = (242, 242, 242)
+
+    @staticmethod                                                   # 返回函数的静态方法
+    def random_color():                                             # 获取随机颜色
+        r = randint(0, 255)
+        g = randint(0, 255)
+        b = randint(0, 255)
+        return (r, g, b)
+
+class Ball(object):
+
+    def __init__(self, x, y, radius, sx, sy, color = Color.RED):    #初始化
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.sx = sx
+        self.sy = sy
+        self.color = color
+        self.alive = True
+
+    def move(self, screen):
+        self.x += self.sx
+        self.y += self.sy
+        if self.x - self.radius <= 0 or \
+                self.x + self.radius >= screen.get_width():           # x, y 方向的碰撞设置
+            self.sx = -self.sx
+        if self.y - self.radius <= 0 or \
+                self.y + self.radius >= screen.get_height():
+            self.sy = -self.sy
+
+    def eat(self, other):
+        if self.alive and other.alive and self != other:
+            dx, dy = self.x - other.x, self.y - other.y              # 计算两者距离
+            distance = sqrt(dx ** 2 + dy ** 2)
+            if distance < self.radius + other.radius \
+                    and self.radius > other.radius:                  # 距离小于两者半径和并且自己半径大于敌人
+                other.alive = False                                  # 敌人消灭
+                self.radius = self.radius + int(other.radius * 0.146)# 增加自己半径
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, self.color,
+                           (self.x, self.y), self.radius, 0)
+
+def main():
+    balls = []                                                       # 定义装所有球的容器
+    pygame.init()                                                    # 初始化窗口
+    screen = pygame.display.set_mode((800, 600))                     # 设置窗口尺寸
+    pygame.display.set_caption('大球吃小球')                           # 设置标题
+    running = True
+    while running:
+        for event in pygame.event.get():                             # 从消息队列中获取事件并对事件进行处理
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN and \
+                        event.button == 1:                           # 处理鼠标事件，==1代表左键按下
+                x, y = event.pos                                     # 鼠标位置坐标
+                radius = randint(10, 100)
+                sx, sy = randint(-10, 10), randint(-10, 10)
+                color = Color.random_color()
+                ball = Ball(x, y, radius, sx, sy, color)
+                balls.append(ball)
+        screen.fill((255, 255, 255))                                # 最开始没写这句出现了移动路径没有隐藏的问题，为什么？
+        for ball in balls:
+            if ball.alive:
+                ball.draw(screen)
+            else:
+                balls.remove(ball)
+        pygame.display.flip()
+        pygame.time.delay(50)
+        for ball in balls:
+            ball.move(screen)
+            for other in balls:
+                ball.eat(other)
+
+if __name__ == '__main__':
+    main()
