@@ -1,0 +1,22 @@
+import pygame
+
+
+def main():
+    pygame.init()                                                   # 初始化导入的pygame中的模块
+    screen = pygame.display.set_mode((800, 600))                    # 初始化用于显示的窗口并设置窗口尺寸
+    pygame.display.set_caption('大球吃小球')                          # 设置当前窗口的标题
+    x, y = 50, 50                                                   # 定义变量来表示小球在屏幕上的位置
+    running = True
+    while running:                                                  # 开启一个事件循环处理发生的事件
+        for event in pygame.event.get():                            # 从消息队列中获取事件并对事件进行处理
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill((255, 255, 255))
+        pygame.draw.circle(screen, (255, 0, 0,), (x, y), 30, 0)
+        pygame.display.flip()
+        pygame.time.delay(50)                                       # 每隔50毫秒就改变小球的位置再刷新窗口
+        x, y = x + 5, y + 5
+
+
+if __name__ == '__main__':
+    main()
