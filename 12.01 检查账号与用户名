@@ -11,10 +11,10 @@ def main():
     qq = input('请输入QQ号: ')
     # match函数的第一个参数是正则表达式字符串或正则表达式对象
     # 第二个参数是要跟正则表达式做匹配的字符串对象
-    m1 = re.match(r'^[0-9a-zA-Z_]{6,20}$', username)
+    m1 = re.match(r'^[0-9a-zA-Z_]{6,20}$', username)     #匹配全字符6-20遍
     if not m1:
         print('请输入有效的用户名.')
-    m2 = re.match(r'^[1-9]\d{4,11}$', qq)
+    m2 = re.match(r'^[1-9]\d{4,11}$', qq)                #匹配数字5-11遍（为什么不是4-11遍？）
     if not m2:
         print('请输入有效的QQ号.')
     if m1 and m2:
