@@ -1,0 +1,48 @@
+from  time import  sleep
+from  threading import  Thread, Lock
+
+
+class Account(object):
+
+    def __init__(self):
+        self._balance = 0                           # 初始化余额
+        self._lock = Lock()
+
+    def deposit(self, money):                       # 存款
+        self._lock.acquire()                        # 获取锁定
+        try:
+            new_balance = self._balance + money     # 计算余额
+            sleep(0.01)                             # 模拟处理延迟
+            self._balance = new_balance             # 更新余额
+        finally:                                    # 在finally中执行释放锁的操作保证正常异常锁都能释放
+            self._lock.release()
+
+    @property
+    def balance(self):
+        return self._balance
+
+class AddMoneyThread(Thread):
+
+    def __init__(self, account, money):
+        super().__init__()                          # 继承Thread类属性
+        self._account = account
+        self._money = money
+
+    def run(self):
+        self._account.deposit(self._money)          # 把钱作为参数传递给存款函数，并把函数传递给账户
+
+def main():
+    account = Account()                             # 创建子类
+    threads = []                                    # 创建空列表
+    for _ in range(100):
+        t = AddMoneyThread(account, 1)              # 存款1元
+        threads.append(t)                           # 加入空列表
+        # 为什么此时 print(threads)得到的是[<AddMoneyThread(Thread-1, initial)>]
+        t.start()                                   # 启动线程，上提一行不影响运行内容？
+    for t in threads:                               # 遍历列表，为什么？
+        t.join()                                    # 结束线程
+    print('账户余额为：￥%d元' % account.balance)
+
+
+if __name__ == '__main__':
+    main()
