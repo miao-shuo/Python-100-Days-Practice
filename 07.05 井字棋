@@ -1,5 +1,6 @@
 import os
 
+
 def print_board(board):                                          #绘制九宫格
     print(board['1'] + '|' + board['2'] + '|' + board['3'])
     print('-+-+-')
@@ -33,6 +34,7 @@ def main():
                     turn = 'x'
             os.system('clear')                                  #清屏
             print_board(curr_board)                             #打印替换后的九宫格
+            
         choice = input('再玩一局？( Y / N )')
         begin = choice == 'Y'                                   #begin = Y 然后呢？
 
