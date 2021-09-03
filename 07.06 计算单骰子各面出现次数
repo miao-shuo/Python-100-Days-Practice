@@ -1,30 +1,9 @@
 from random import randint
 
-f1 = 0
-f2 = 0
-f3 = 0
-f4 = 0
-f5 = 0
-f6 = 0
-
-for i in range(6000):
+counters = [0] * 6              # [0, 0, 0, 0, 0, 0]
+for _ in range(6000):
     face = randint(1,6)
-    if face == 1:
-        f1 += 1
-    elif face == 2:
-        f2 += 1
-    elif f3 == 3:
-        f3 += 1
-    elif f4 == 4:
-        f4 += 1
-    elif f5 == 5:
-        f5 += 1
-    else:
-        f6 += 1
+    counters[face - 1] += 1     # 例如face = 1时记入列表下标0的位置
 
-print('1点出现了%d次' % f1)
-print('2点出现了%d次' % f2)
-print('3点出现了%d次' % f3)
-print('4点出现了%d次' % f4)
-print('5点出现了%d次' % f5)
-print('6点出现了%d次' % f6)
+for face in range(1, 7):
+    print(f'{face}点出现了{counters[face - 1]}次')
