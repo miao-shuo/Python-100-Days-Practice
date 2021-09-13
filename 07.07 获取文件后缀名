@@ -1,0 +1,17 @@
+'''
+在Linux和macOS系统上文件名可以以.开头，表示这是一个隐藏文件
+如.gitignore，.后面并不是后缀名，这个文件没有后缀名或者说后缀名为''
+'''
+
+def get_suffix(filename, ignore_dot = True):                    # 获取文件名后缀，ignore_dot 是否忽略后缀名前面的点
+    pos = filename.rfind('.')                                   # 通过反向查找提取后缀名
+
+    if pos <= 0:                                                # '.'的位置如果处于行首
+        return ''
+    return filename[pos + 1:] if ignore_dot else filename[pos:]
+
+print(get_suffix('readme.txt', False))                          # .txt
+print(get_suffix('readme.txt.md'))                              # md
+print(get_suffix('.readme'))                                    #
+print(get_suffix('readme.'))                                    #
+print(get_suffix('readme'))                                     #
