@@ -1,14 +1,4 @@
-def add(x, y):                                           # 定义加法运算
-    return x + y
-
-def sub(x, y):                                           # 定义减法运算
-    return x - y
-
-def mul(x, y):                                           # 定义乘法运算
-    return x * y
-
-def div(x, y):                                           # 定义除法运算
-    return x / y
+from operator import add, sub, mul, truediv
 
 def calc(*args, init_value, op, **kwargs):               # init_value 运算初始值，op 二元运算函数
     result = init_value
